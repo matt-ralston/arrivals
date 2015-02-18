@@ -1,0 +1,68 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Transit Arrivals</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="stylesheets/mattralston.css" rel="stylesheet">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <script src="js/mattralston.js"></script>
+  </head>
+  <body>
+
+<script>
+   var theUrl = "http://developer.trimet.org/ws/V1/arrivals/appID/26905EAEEBA02217C9448D594?json=true&locIDs=1731";
+
+   $.getJSON(theUrl, function(json) {
+       console.log(json.resultSet);
+
+   var d1 = new Date(json.resultSet.arrival[0].scheduled),
+       d2 = new Date(json.resultSet.arrival[1].scheduled),
+       h1 = d1.getHours(),
+       h2 = d2.getHours(),
+       m1 = d1.getMinutes(),
+       m2 = d2.getMinutes();
+
+   $('#stopID').text('Stop ID: ' + json.resultSet.location[0].locid);
+   $('#location').text(json.resultSet.location[0].desc);
+   $('#fullSign1').text(json.resultSet.arrival[0].fullSign);
+   $('#scheduled1').text("Scheduled at: " + h1 + ":" + m1);
+   $('#fullSign2').text(json.resultSet.arrival[1].fullSign);
+   $('#scheduled2').text("Scheduled at: " + h2 + ":" + m2)
+   });
+</script>
+
+
+
+    <div id="container" class="panel panel-primary">
+
+        <div class="panel-heading"><header class="panel-heading">Get Around PDX!</header></div>
+
+
+<section id="stopID"></section>
+<section id="scheduled1"></section>
+<section id="fullSign1"></section>
+
+        <form>
+            <label>From<input type="text"></input></label>
+            <label>To<input type="text"></input></label>
+            <button class="btn btn-lg btn-success" href="#" >Directions</button>
+        </form>
+    </div>
+
+
+  </body>
+<html>
